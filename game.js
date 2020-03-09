@@ -26,37 +26,46 @@ $("body").keydown(function () {
   }
 });
 
+$('h1').on('click', function () {
+  $(".next").animate({ opacity: 1 });
+  if (!gameStarted) {
+    gameStarted = true;
+    nextSequence();
+  } else {
+    checkAnswer();
+  }
+});
+
 $(".next").on("click", function () {
   checkAnswer();
 });
 
 // ----------------------------------------------------------------------------
 function nextSequence() {
-// ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
 
   gamePattern.push(randomChosenColour);
   userClickedPattern.length = 0;
   selected = $("#" + randomChosenColour);
-  playSound(randomChosenColour);
 
-  for (var i = 0; i < 3; i++) {
-    selected.fadeOut(80).fadeIn(80);
-  }
+  playSound(randomChosenColour);
+  selected.fadeOut(80).fadeIn(80);
+  animatePressed(randomChosenColour);
 
   level += 1;
   $("#level-title").text("Level " + level);
 }
 // ----------------------------------------------------------------------------
 function playSound(name) {
-// ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
   sound = new Audio("sounds/" + name + ".mp3");
   sound.play();
 }
 // ----------------------------------------------------------------------------
 function animatePressed(currentColour) {
-// ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
   control = $("#" + currentColour);
   control.addClass("pressed");
   setTimeout(function () {
@@ -65,7 +74,7 @@ function animatePressed(currentColour) {
 }
 // ----------------------------------------------------------------------------
 function checkAnswer() {
-// ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
   if (JSON.stringify(gamePattern) === JSON.stringify(userClickedPattern)) {
     playSound('beep');
     setTimeout(function () {
@@ -77,7 +86,7 @@ function checkAnswer() {
 }
 // ----------------------------------------------------------------------------
 function resetGame() {
-// ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
   $('body').addClass('game-over');
   setTimeout(function () {
     $('body').removeClass('game-over');
