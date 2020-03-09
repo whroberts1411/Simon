@@ -14,7 +14,7 @@ $(".btn").on("click", function () {
   userClickedPattern.push(userChosenColour);
   playSound(userChosenColour);
   animatePressed(userChosenColour);
-});
+ });
 
 $("body").keydown(function () {
   $(".next").animate({ opacity: 1 });
@@ -51,7 +51,7 @@ function nextSequence() {
   selected = $("#" + randomChosenColour);
 
   playSound(randomChosenColour);
-  selected.fadeOut(80).fadeIn(80);
+  selected.fadeOut(150).fadeIn(150);
   animatePressed(randomChosenColour);
 
   level += 1;
@@ -99,7 +99,7 @@ function resetGame() {
 
   playSound("wrong");
   $(".next").animate({ opacity: 0 });
-  $("#level-title").text("Press A Key to Start");
+  $("#level-title").text("Press A Key to Start, or Click Me");
   gamePattern.length = 0;
   level = 0;
   gameStarted = false;
